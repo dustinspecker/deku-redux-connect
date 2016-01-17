@@ -18,7 +18,7 @@ import {combineReducers, createStore} from 'redux'
 import {dom, element} from 'deku'
 
 import count from './reducers/count'
-import counter from './components/counter'
+import Counter from './components/counter'
 
 const store = createStore(combineReducers({count}))
 
