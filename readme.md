@@ -13,7 +13,7 @@ npm install --save deku-redux-connect
 # Usage
 
 `index.jsx`
-```javascript
+```jsx
 import {combineReducers, createStore} from 'redux'
 import {dom, element} from 'deku'
 
@@ -47,7 +47,7 @@ export default (state = 0, {type} = {}) {
 ```
 
 `components/counter.jsx`
-```javascript
+```jsx
 import connect from 'deku-redux-connect'
 import {element} from 'deku'
 
