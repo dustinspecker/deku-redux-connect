@@ -14,7 +14,7 @@ npm install --save deku-redux-connect
 
 `index.jsx`
 ```javascript
-import {createStore, combineReducers} from 'redux'
+import {combineReducers, createStore} from 'redux'
 import {dom, element} from 'deku'
 
 import count from './reducers/count'
