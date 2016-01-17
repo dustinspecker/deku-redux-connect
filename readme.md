@@ -2,7 +2,8 @@
 [![NPM version](https://badge.fury.io/js/deku-redux-connect.svg)](http://badge.fury.io/js/deku-redux-connect) [![Build Status](https://travis-ci.org/dustinspecker/deku-redux-connect.svg?branch=master)](https://travis-ci.org/dustinspecker/deku-redux-connect) [![Coverage Status](https://img.shields.io/coveralls/dustinspecker/deku-redux-connect.svg)](https://coveralls.io/r/dustinspecker/deku-redux-connect?branch=master)
 
 [![Code Climate](https://codeclimate.com/github/dustinspecker/deku-redux-connect/badges/gpa.svg)](https://codeclimate.com/github/dustinspecker/deku-redux-connect) [![Dependencies](https://david-dm.org/dustinspecker/deku-redux-connect.svg)](https://david-dm.org/dustinspecker/deku-redux-connect/#info=dependencies&view=table) [![DevDependencies](https://david-dm.org/dustinspecker/deku-redux-connect/dev-status.svg)](https://david-dm.org/dustinspecker/deku-redux-connect/#info=devDependencies&view=table)
-> Like [react-redux]()'s [connect](), but for [Deku]() `2.0.0`
+
+> Like [react-redux](https://github.com/rackt/react-redux)'s [connect](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options), but for [Deku](https://github.com/dekujs/deku) `2.0.0`
 
 # Install
 ```bash
@@ -19,7 +20,7 @@ import {dom, element} from 'deku'
 import count from './reducers/count'
 import counter from './components/counter'
 
-const store = createStore(combineReducers)
+const store = createStore(combineReducers({count}))
 
 const render = dom.createRenderer(document.body, store.dispatch)
 
