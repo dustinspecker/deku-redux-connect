@@ -1,7 +1,7 @@
 {
   "name": "deku-redux-connect",
   "version": "0.0.0",
-  "description": "",
+  "description": "Like react-redux's connect, but for Deku 2.0.0",
   "main": "lib/index.js",
   "scripts": {
     "compile": "babel src --out-dir lib",
