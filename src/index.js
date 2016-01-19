@@ -24,10 +24,16 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions) => {
 module.exports = (mapStateToProps, actions) => component => {
   if (typeof component === 'function') {
     // return component function with inject args
-    return ({children, context, dispatch, props}) => {
+    const convertedComponentFunction = ({children, context, dispatch, props}) => {
       const transformedProps = transformProps(props, context, dispatch, mapStateToProps, actions)
       return component({children, dispatch, props: transformedProps})
     }
+
+    Object.keys(component).forEach(key => {
+      convertedComponentFunction[key] = component[key]
+    })
+
+    return convertedComponentFunction
   }
 
   const componentWithModifiedRender = {

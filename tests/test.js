@@ -135,3 +135,13 @@ test('should inject props in component\'s render method', t => {
   connectedComponent.render(model)
   t.is(connectedComponent.other(), 5)
 })
+
+test('should attach properties from original function', t => {
+  const component = () => 3
+  component.other = () => 'hi'
+
+  const connectedComponent = connect()(component)
+
+  t.is(connectedComponent({}), 3)
+  t.is(connectedComponent.other(), 'hi')
+})
