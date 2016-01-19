@@ -1,8 +1,8 @@
 import isPlainObj from 'is-plain-obj'
 import objectAssign from 'object-assign'
 
-module.exports = (mapStateToProps, actions) => component => ({children, context, dispatch, props = {}}) => {
-  let transformedProps = props
+const transformProps = (props, context, dispatch, mapStateToProps, actions) => {
+  let transformedProps = props || {}
 
   // convert state to props
   if (typeof mapStateToProps === 'function') {
@@ -18,14 +18,24 @@ module.exports = (mapStateToProps, actions) => component => ({children, context,
     transformedProps = objectAssign(transformedProps, mappedActions)
   }
 
+  return transformedProps
+}
+
+module.exports = (mapStateToProps, actions) => component => {
   if (typeof component === 'function') {
     // return component function with inject args
-    return component({children, dispatch, props: transformedProps})
+    return ({children, context, dispatch, props}) => {
+      const transformedProps = transformProps(props, context, dispatch, mapStateToProps, actions)
+      return component({children, dispatch, props: transformedProps})
+    }
   }
 
   const componentWithModifiedRender = {
     // invoke component render with injected args
-    render: () => component.render({children, dispatch, props: transformedProps})
+    render({children, context, dispatch, props}) {
+      const transformedProps = transformProps(props, context, dispatch, mapStateToProps, actions)
+      return component.render({children, dispatch, props: transformedProps})
+    }
   }
   // copy component's properties to componentWithModifiedRender
   Object.keys(component).forEach(key => {

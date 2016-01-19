@@ -132,6 +132,6 @@ test('should inject props in component\'s render method', t => {
   const increment = () => 7
 
   const connectedComponent = connect(mapStateToProps, {increment})(component)
-  connectedComponent(model).render()
-  t.is(connectedComponent(model).other(), 5)
+  connectedComponent.render(model)
+  t.is(connectedComponent.other(), 5)
 })
