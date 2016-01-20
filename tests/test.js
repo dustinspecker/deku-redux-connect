@@ -2,6 +2,34 @@ import test from 'ava'
 
 import connect from '../lib/'
 
+test('should throw TypeError if provided mapStateToProps is not a function', t => {
+  const throws = () => connect('hello')(() => 'hi')({})
+
+  t.throws(throws, TypeError)
+  t.throws(throws, /Expected mapStateToProps to be a Function/)
+})
+
+test('should throw TypeError if provided actions is not an object', t => {
+  const throws = () => connect(undefined, 'hi')(() => 'hi')({})
+
+  t.throws(throws, TypeError)
+  t.throws(throws, /Expected actions to be an Object/)
+})
+
+test('should throw Error if actions\' keys are not all functions', t => {
+  const throws = () => connect(undefined, {hi: 'bye'})(() => 'hello')({})
+
+  t.throws(throws, Error)
+  t.throws(throws, /Expected actions' keys to be functions/)
+})
+
+test('should throw TypeError if component is not an object or function', t => {
+  const throws = () => connect()('hello')
+
+  t.throws(throws, TypeError)
+  t.throws(throws, /Expected component to be an Object or Function/)
+})
+
 test('should pass children, dispatch, and props by default', t => {
   t.plan(3)
 
