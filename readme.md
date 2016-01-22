@@ -78,10 +78,13 @@ A function that is called with the App's state that should return an object.
 *Note: These transformed props are merged with any original props provided to the component.*
 
 #### mapDispatchToProps
-type: `object`
+type: `function` | `object`
 
-An object with values being functions that return an action. The key names provided on the action object
-will attached to the props object. These prop actions will dispatch the action.
+If `mapDispatchToProps` is a function, then the function will be called with `dispatch`. `mapDispatchToProps` should
+return an object. This object will be attached to the props passed to the connected component.
+
+If `mapDispatchToProps` is an object, then each property needs a value being a function that returns an action. The key names provided on the `mapDispatchToProps` object
+will be attached to the props object. These prop actions will dispatch the action.
 
 *Note: These transformed action props are merged with any original props and props created by `mapStateToProps`.*
 

@@ -101,7 +101,7 @@ test('should merge mappedProps with original props', t => {
   connectedComponent(model)
 })
 
-test('should transform context and actions and pass as props when mapFn and actions provided', t => {
+test('should transform context and actions and pass as props when mapFn and actions object provided', t => {
   t.plan(5)
 
   const component = ({children, dispatch, props}) => {
@@ -127,6 +127,36 @@ test('should transform context and actions and pass as props when mapFn and acti
   const increment = () => 7
 
   const connectedComponent = connect(mapStateToProps, {increment})(component)
+
+  connectedComponent(model)
+})
+
+test('should use actions function if provided', t => {
+  t.plan(2)
+
+  const component = ({props}) => {
+    t.is(props.color, 'red')
+    props.updateName('dustin')
+  }
+
+  const model = {
+    children: [],
+    dispatch(name) {
+      t.is(name, 'dustin')
+    },
+    context: {
+      color: 'red'
+    },
+    props: {}
+  }
+
+  const mapStateToProps = ({color}) => ({color})
+
+  const mapDispatchToProps = dispatch => ({
+    updateName: name => dispatch(name)
+  })
+
+  const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(component)
 
   connectedComponent(model)
 })

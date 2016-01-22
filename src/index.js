@@ -2,6 +2,7 @@ import isPlainObj from 'is-plain-obj'
 import objectAssign from 'object-assign'
 
 const transformProps = (props, context, dispatch, mapStateToProps, actions, mergeProps) => {
+  /* eslint complexity: [2, 8] */
   const ownProps = props || {}
   let dispatchProps, stateProps
 
@@ -9,8 +10,8 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions, merg
     throw new TypeError('Expected mapStateToProps to be a Function')
   }
 
-  if (actions !== undefined && typeof actions !== 'object') {
-    throw new TypeError('Expected actions to be an Object')
+  if (actions !== undefined && typeof actions !== 'object' && typeof actions !== 'function') {
+    throw new TypeError('Expected actions to be an Object or Function')
   }
 
   // convert state to props
@@ -28,6 +29,10 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions, merg
       acc[action] = (...args) => dispatch(actions[action](...args))
       return acc
     }, {})
+  }
+
+  if (typeof actions === 'function') {
+    dispatchProps = actions(dispatch)
   }
 
   if (typeof mergeProps === 'function') {
