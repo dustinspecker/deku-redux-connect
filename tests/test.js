@@ -131,6 +131,40 @@ test('should transform context and actions and pass as props when mapFn and acti
   connectedComponent(model)
 })
 
+test('should use mergeProps if provided', t => {
+  t.plan(5)
+
+  const component = ({props}) => {
+    t.is(Object.keys(props).length, 1)
+    t.is(props.color, 'red')
+  }
+
+  const model = {
+    children: [],
+    dispatch: x => 3 * x,
+    context: {
+      name: 'dustin'
+    },
+    props: {
+      age: 25
+    }
+  }
+
+  const mapStateToProps = ({name}) => ({name})
+  const increment = x => x + 1
+  const mergeProps = (stateProps, dispatchProps, ownProps) => {
+    t.is(stateProps.name, 'dustin')
+    t.is(dispatchProps.increment(1), 6)
+    t.is(ownProps.age, 25)
+
+    return {color: 'red'}
+  }
+
+  const connectedComponent = connect(mapStateToProps, {increment}, mergeProps)(component)
+
+  connectedComponent(model)
+})
+
 test('should inject props in component\'s render method', t => {
   t.plan(6)
 

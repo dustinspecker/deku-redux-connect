@@ -67,7 +67,7 @@ export default connect(
 ```
 
 ## API
-### connect([mapStateToProps], [mapDispatchToProps])(component)
+### connect([mapStateToProps], [mapDispatchToProps], [mergeProps])(component)
 Returns a component with state and actions mapped to the component's props
 
 #### mapStateToProps
@@ -85,7 +85,13 @@ will attached to the props object. These prop actions will dispatch the action.
 
 *Note: These transformed action props are merged with any original props and props created by `mapStateToProps`.*
 
-### component
+#### mergeProps
+type: `function`
+
+A function that is passed the `stateProps`, `dispatchProps`, and `ownProps`. The function should
+return an object. This object will be the props injected into connected component.
+
+#### component
 type: `function` | `object`
 
 The desired component to transform. If a `function` is provided, then the function will be called with the transformed props.
