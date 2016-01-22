@@ -1,7 +1,7 @@
 import isPlainObj from 'is-plain-obj'
 import objectAssign from 'object-assign'
 
-const transformProps = (props, context, dispatch, mapStateToProps, actions, mergeProps) => {
+const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps) => {
   /* eslint complexity: [2, 8] */
   const ownProps = props || {}
   let dispatchProps, stateProps
@@ -10,8 +10,10 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions, merg
     throw new TypeError('Expected mapStateToProps to be a Function')
   }
 
-  if (actions !== undefined && typeof actions !== 'object' && typeof actions !== 'function') {
-    throw new TypeError('Expected actions to be an Object or Function')
+  if (mapDispatchToProps !== undefined &&
+      typeof mapDispatchToProps !== 'object' &&
+      typeof mapDispatchToProps !== 'function') {
+    throw new TypeError('Expected mapDispatchToProps to be an Object or Function')
   }
 
   // convert state to props
@@ -20,19 +22,19 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions, merg
   }
 
   // bind action creators to props
-  if (isPlainObj(actions)) {
-    dispatchProps = Object.keys(actions).reduce((acc, action) => {
-      if (typeof actions[action] !== 'function') {
-        throw new Error('Expected actions\' keys to be functions')
+  if (isPlainObj(mapDispatchToProps)) {
+    dispatchProps = Object.keys(mapDispatchToProps).reduce((acc, action) => {
+      if (typeof mapDispatchToProps[action] !== 'function') {
+        throw new Error('Expected mapDispatchToProps\' keys to be functions')
       }
 
-      acc[action] = (...args) => dispatch(actions[action](...args))
+      acc[action] = (...args) => dispatch(mapDispatchToProps[action](...args))
       return acc
     }, {})
   }
 
-  if (typeof actions === 'function') {
-    dispatchProps = actions(dispatch)
+  if (typeof mapDispatchToProps === 'function') {
+    dispatchProps = mapDispatchToProps(dispatch)
   }
 
   if (typeof mergeProps === 'function') {
@@ -42,11 +44,11 @@ const transformProps = (props, context, dispatch, mapStateToProps, actions, merg
   return objectAssign({}, ownProps, stateProps, dispatchProps)
 }
 
-module.exports = (mapStateToProps, actions, mergeProps) => component => {
+module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component => {
   if (typeof component === 'function') {
     // return component function with inject args
     const convertedComponentFunction = ({children, context, dispatch, props}) => {
-      const transformedProps = transformProps(props, context, dispatch, mapStateToProps, actions, mergeProps)
+      const transformedProps = transformProps(props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps)
       return component({children, dispatch, props: transformedProps})
     }
 
@@ -61,7 +63,8 @@ module.exports = (mapStateToProps, actions, mergeProps) => component => {
     const componentWithModifiedRender = {
       // invoke component render with injected args
       render({children, context, dispatch, props}) {
-        const transformedProps = transformProps(props, context, dispatch, mapStateToProps, actions, mergeProps)
+        const transformedProps = transformProps(props, context, dispatch, mapStateToProps,
+          mapDispatchToProps, mergeProps)
         return component.render({children, dispatch, props: transformedProps})
       }
     }
