@@ -67,7 +67,7 @@ export default connect(
 ```
 
 ## API
-### connect([mapStateToProps], [actions])(component)
+### connect([mapStateToProps], [mapDispatchToProps])(component)
 Returns a component with state and actions mapped to the component's props
 
 #### mapStateToProps
@@ -77,7 +77,7 @@ A function that is called with the App's state that should return an object.
 
 *Note: These transformed props are merged with any original props provided to the component.*
 
-#### actions
+#### mapDispatchToProps
 type: `object`
 
 An object with values being functions that return an action. The key names provided on the action object
