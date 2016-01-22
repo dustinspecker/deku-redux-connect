@@ -15,14 +15,14 @@ npm install --save deku-redux-connect
 `index.jsx`
 ```jsx
 import {combineReducers, createStore} from 'redux'
-import {dom, element} from 'deku'
+import {createApp, element} from 'deku'
 
 import count from './reducers/count'
 import Counter from './components/counter'
 
 const store = createStore(combineReducers({count}))
 
-const render = dom.createRenderer(document.body, store.dispatch)
+const render = createApp(document.body, store.dispatch)
 
 store.subscribe(() => render(<Counter />, store.getState()))
 ```
