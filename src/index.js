@@ -6,19 +6,11 @@ const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchTo
   const ownProps = props || {}
   let dispatchProps, stateProps
 
-  if (mapStateToProps !== undefined && typeof mapStateToProps !== 'function') {
-    throw new TypeError('Expected mapStateToProps to be a Function')
-  }
-
-  if (mapDispatchToProps !== undefined &&
-      typeof mapDispatchToProps !== 'object' &&
-      typeof mapDispatchToProps !== 'function') {
-    throw new TypeError('Expected mapDispatchToProps to be an Object or Function')
-  }
-
   // convert state to props
   if (typeof mapStateToProps === 'function') {
     stateProps = mapStateToProps(context)
+  } else if (mapStateToProps !== undefined) {
+    throw new TypeError('Expected mapStateToProps to be a Function')
   }
 
   // bind action creators to props
@@ -31,10 +23,10 @@ const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchTo
       acc[action] = (...args) => dispatch(mapDispatchToProps[action](...args))
       return acc
     }, {})
-  }
-
-  if (typeof mapDispatchToProps === 'function') {
+  } else if (typeof mapDispatchToProps === 'function') {
     dispatchProps = mapDispatchToProps(dispatch)
+  } else if (mapDispatchToProps !== undefined) {
+    throw new TypeError('Expected mapDispatchToProps to be an Object or Function')
   }
 
   if (typeof mergeProps === 'function') {
