@@ -1,21 +1,9 @@
 import isPlainObj from 'is-plain-obj'
 import objectAssign from 'object-assign'
 
-const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps) => {
-  /* eslint complexity: [2, 8] */
-  const ownProps = props || {}
-  let dispatchProps, stateProps
-
-  // convert state to props
-  if (typeof mapStateToProps === 'function') {
-    stateProps = mapStateToProps(context)
-  } else if (mapStateToProps !== undefined) {
-    throw new TypeError('Expected mapStateToProps to be a Function')
-  }
-
-  // bind action creators to props
+const buildDispatchProps = (dispatch, mapDispatchToProps) => {
   if (isPlainObj(mapDispatchToProps)) {
-    dispatchProps = Object.keys(mapDispatchToProps).reduce((acc, action) => {
+    return Object.keys(mapDispatchToProps).reduce((acc, action) => {
       if (typeof mapDispatchToProps[action] !== 'function') {
         throw new Error('Expected mapDispatchToProps\' keys to be functions')
       }
@@ -23,11 +11,31 @@ const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchTo
       acc[action] = (...args) => dispatch(mapDispatchToProps[action](...args))
       return acc
     }, {})
-  } else if (typeof mapDispatchToProps === 'function') {
-    dispatchProps = mapDispatchToProps(dispatch)
-  } else if (mapDispatchToProps !== undefined) {
+  }
+
+  if (typeof mapDispatchToProps === 'function') {
+    return mapDispatchToProps(dispatch)
+  }
+
+  if (mapDispatchToProps !== undefined) {
     throw new TypeError('Expected mapDispatchToProps to be an Object or Function')
   }
+}
+
+const buildStateProps = (context, mapStateToProps) => {
+  if (typeof mapStateToProps === 'function') {
+    return mapStateToProps(context)
+  }
+
+  if (mapStateToProps !== undefined) {
+    throw new TypeError('Expected mapStateToProps to be a Function')
+  }
+}
+
+const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps) => {
+  const dispatchProps = buildDispatchProps(dispatch, mapDispatchToProps)
+    , stateProps = buildStateProps(context, mapStateToProps)
+    , ownProps = props || {}
 
   if (typeof mergeProps === 'function') {
     return mergeProps(stateProps, dispatchProps, ownProps)
