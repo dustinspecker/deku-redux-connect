@@ -161,6 +161,17 @@ test('should use actions function if provided', t => {
   connectedComponent(model)
 })
 
+test('should throw error if mapDispatchToProps fn does not return an object', t => {
+  const component = () => 3
+
+  const mapDispatchToProps = () => 4
+
+  const connectedComponent = connect(undefined, mapDispatchToProps)(component)
+
+  t.throws(() => connectedComponent({}), Error)
+  t.throws(() => connectedComponent({}), /Expected mapDispatchToProps to return an object, but got 4/)
+})
+
 test('should use mergeProps if provided', t => {
   t.plan(5)
 

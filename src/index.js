@@ -14,7 +14,13 @@ const buildDispatchProps = (dispatch, mapDispatchToProps) => {
   }
 
   if (typeof mapDispatchToProps === 'function') {
-    return mapDispatchToProps(dispatch)
+    const dispatchProps = mapDispatchToProps(dispatch)
+
+    if (!isPlainObj(dispatchProps)) {
+      throw new Error(`Expected mapDispatchToProps to return an object, but got ${dispatchProps}`)
+    }
+
+    return dispatchProps
   }
 
   if (mapDispatchToProps !== undefined) {
