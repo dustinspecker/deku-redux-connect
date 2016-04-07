@@ -34,7 +34,7 @@ test('should pass children, dispatch, and props by default', t => {
   t.plan(3)
 
   const component = ({children, dispatch, props}) => {
-    t.same(children, [1, 2])
+    t.deepEqual(children, [1, 2])
     t.is(dispatch(), 3)
     t.is(props.color, 'red')
   }
@@ -55,7 +55,7 @@ test('should transform context and pass as props when mapFn is provided', t => {
   t.plan(3)
 
   const component = ({children, dispatch, props}) => {
-    t.same(children, [1, 2])
+    t.deepEqual(children, [1, 2])
     t.is(dispatch(), 3)
     t.is(props.color, 'red')
   }
@@ -78,7 +78,7 @@ test('should merge mappedProps with original props', t => {
   t.plan(4)
 
   const component = ({children, dispatch, props}) => {
-    t.same(children, [1, 2])
+    t.deepEqual(children, [1, 2])
     t.is(dispatch(), 3)
     t.is(props.age, 20)
     t.is(props.color, 'red')
@@ -105,7 +105,7 @@ test('should transform context and actions and pass as props when mapFn and acti
   t.plan(5)
 
   const component = ({children, dispatch, props}) => {
-    t.same(children, [1, 2])
+    t.deepEqual(children, [1, 2])
     t.is(dispatch(3), 9)
     t.is(props.age, 20)
     t.is(props.color, 'red')
@@ -212,7 +212,7 @@ test('should inject props in component\'s render method', t => {
   const component = {
     other: () => 5,
     render({children, dispatch, props}) {
-      t.same(children, [1, 2])
+      t.deepEqual(children, [1, 2])
       t.is(dispatch(3), 9)
       t.is(props.age, 20)
       t.is(props.color, 'red')
