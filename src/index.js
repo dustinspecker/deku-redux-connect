@@ -9,6 +9,7 @@ const buildDispatchProps = (dispatch, mapDispatchToProps) => {
       }
 
       acc[action] = (...args) => dispatch(mapDispatchToProps[action](...args))
+
       return acc
     }, {})
   }
@@ -55,6 +56,7 @@ module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component 
     // return component function with inject args
     const convertedComponentFunction = ({children, context, dispatch, props}) => {
       const transformedProps = transformProps(props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps)
+
       return component({children, dispatch, props: transformedProps})
     }
 
@@ -71,6 +73,7 @@ module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component 
       render({children, context, dispatch, props}) {
         const transformedProps = transformProps(props, context, dispatch, mapStateToProps,
           mapDispatchToProps, mergeProps)
+
         return component.render({children, dispatch, props: transformedProps})
       }
     }
@@ -80,6 +83,7 @@ module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component 
         componentWithModifiedRender[key] = component[key]
       }
     })
+
     return componentWithModifiedRender
   }
 
