@@ -28,7 +28,7 @@
     "babel-register": "^6.4.3",
     "coveralls": "^2.11.6",
     "eslint": "^2.4.0",
-    "eslint-config-dustinspecker": "^0.5.0",
+    "eslint-config-dustinspecker": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
     "nyc": "^6.0.0"
   },
