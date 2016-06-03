@@ -30,17 +30,19 @@ test('should throw TypeError if component is not an object or function', t => {
   t.throws(throws, /Expected component to be an Object or Function/)
 })
 
-test('should pass children, dispatch, and props by default', t => {
-  t.plan(6)
+test('should pass children, dispatch, path, and props by default', t => {
+  t.plan(8)
 
-  const component = ({children, dispatch, props}) => {
+  const render = ({children, dispatch, path, props}) => {
     t.deepEqual(children, [1, 2])
     t.is(dispatch(), 3)
+    t.is(path, '0.1.5.2')
     t.is(props.color, 'red')
   }
   const model = {
     children: [1, 2],
     dispatch: () => 3,
+    path: '0.1.5.2',
     props: {
       color: 'red'
     }

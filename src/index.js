@@ -54,10 +54,10 @@ const transformProps = (props, context, dispatch, mapStateToProps, mapDispatchTo
 module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component => {
   if (typeof component === 'function') {
     // return component function with inject args
-    const convertedComponentFunction = ({children, context, dispatch, props}) => {
+    const convertedComponentFunction = ({children, context, dispatch, path, props}) => {
       const transformedProps = transformProps(props, context, dispatch, mapStateToProps, mapDispatchToProps, mergeProps)
 
-      return component({children, dispatch, props: transformedProps})
+      return component({children, dispatch, path, props: transformedProps})
     }
 
     Object.keys(component).forEach(key => {
@@ -70,11 +70,11 @@ module.exports = (mapStateToProps, mapDispatchToProps, mergeProps) => component 
   if (typeof component === 'object') {
     const componentWithModifiedRender = {
       // invoke component render with injected args
-      render({children, context, dispatch, props}) {
+      render({children, context, dispatch, path, props}) {
         const transformedProps = transformProps(props, context, dispatch, mapStateToProps,
           mapDispatchToProps, mergeProps)
 
-        return component.render({children, dispatch, props: transformedProps})
+        return component.render({children, dispatch, path, props: transformedProps})
       }
     }
     // copy component's properties to componentWithModifiedRender
