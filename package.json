@@ -1,15 +1,19 @@
 {
   "name": "deku-redux-connect",
-  "version": "0.1.8",
+  "version": "0.0.0-semantically-released",
   "description": "Like react-redux's connect, but for Deku 2.0.0",
   "main": "lib/index.js",
   "scripts": {
     "compile": "babel src --out-dir lib",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./ --ignore-pattern node_modules/ --ignore-pattern lib",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run lint && npm run compile && nyc ava"
   },
-  "repository": "dustinspecker/deku-redux-connect",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dustinspecker/deku-redux-connect.git"
+  },
   "keywords": [
     "deku",
     "redux",
@@ -32,7 +36,8 @@
     "eslint-config-dustinspecker": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
     "eslint-plugin-xo": "^0.4.0",
-    "nyc": "^6.0.0"
+    "nyc": "^6.0.0",
+    "semantic-release": "^4.3.5"
   },
   "ava": {
     "files": [
