@@ -31,7 +31,7 @@ test('should throw TypeError if component is not an object or function', t => {
 })
 
 test('should pass children, dispatch, and props by default', t => {
-  t.plan(3)
+  t.plan(6)
 
   const component = ({children, dispatch, props}) => {
     t.deepEqual(children, [1, 2])
@@ -46,9 +46,11 @@ test('should pass children, dispatch, and props by default', t => {
     }
   }
 
-  const connectedComponent = connect()(component)
+  const connectedComponentFn = connect()(render)
+  connectedComponentFn(model)
 
-  connectedComponent(model)
+  const connectedComponentObj = connect()({render})
+  connectedComponentObj.render(model)
 })
 
 test('should transform context and pass as props when mapFn is provided', t => {
