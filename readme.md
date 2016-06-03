@@ -8,6 +8,7 @@
 [![DevDependencies](https://david-dm.org/dustinspecker/deku-redux-connect/dev-status.svg)](https://david-dm.org/dustinspecker/deku-redux-connect/#info=devDependencies&view=table)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 > Like [react-redux](https://github.com/rackt/react-redux)'s [connect](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options), but for [Deku](https://github.com/dekujs/deku) `2.0.0`
 

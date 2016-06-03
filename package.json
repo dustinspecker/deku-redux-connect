@@ -27,6 +27,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.4.3",
     "coveralls": "^2.11.6",
+    "cz-conventional-changelog": "^1.1.5",
     "eslint": "^2.4.0",
     "eslint-config-dustinspecker": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
@@ -49,5 +50,10 @@
   "dependencies": {
     "is-plain-obj": "^1.1.0",
     "object-assign": "^4.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
