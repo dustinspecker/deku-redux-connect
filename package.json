@@ -36,7 +36,7 @@
     "eslint-config-dustinspecker": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
     "eslint-plugin-xo": "^0.4.0",
-    "nyc": "^6.0.0",
+    "nyc": "^6.6.0",
     "semantic-release": "^4.3.5"
   },
   "ava": {
