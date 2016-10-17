@@ -32,7 +32,7 @@
     "babel-register": "^6.4.3",
     "coveralls": "^2.11.6",
     "cz-conventional-changelog": "^1.1.5",
-    "eslint": "^2.4.0",
+    "eslint": "^3.8.1",
     "eslint-config-dustinspecker": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
     "eslint-plugin-xo": "^0.4.0",
