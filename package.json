@@ -32,7 +32,7 @@
     "coveralls": "^2.11.6",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^3.10.0",
-    "eslint-config-dustinspecker": "^1.1.0",
+    "eslint-config-dustinspecker": "^2.0.1",
     "eslint-plugin-no-use-extend-native": "^0.3.4",
     "eslint-plugin-xo": "^1.0.0",
     "nyc": "^8.4.0",
